@@ -5,7 +5,11 @@ import { useStyled } from '../styled';
 
 const StyledComponent: FC<{ style: any }> = ({ style }) => {
   const styled = useStyled();
-  return <pre className={styled('font-size: 16px', style)}>Hello</pre>;
+  return (
+    <pre
+      className={styled('font-size: 16px', style)}
+    >{`<pre className={styled(style)}>`}</pre>
+  );
 };
 
 const meta: Meta<typeof StyledComponent> = {
@@ -31,7 +35,7 @@ export const WithPseudo: StoryObj<typeof StyledComponent> = {
         color: 'orange',
       },
       '&::after': {
-        content: '", pseudo!"',
+        content: '"with pseudo</pre>"',
       },
     },
   },
@@ -45,7 +49,7 @@ export const CSSString: StoryObj<typeof StyledComponent> = {
         color: orange;
       }
       &::after {
-        content: ", pseudo!";
+        content: "with pseudo</pre>";
       }
     `,
   },
