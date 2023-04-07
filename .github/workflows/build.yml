@@ -1,0 +1,23 @@
+name: Build code
+
+on: push
+
+jobs:
+  build-code:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: latest
+
+      - name: Install
+        run: pnpm i --frozen-lockfile
+
+      - name: Build
+        run: pnpm build
+
+      - name: Build storybook
+        run: pnpm storybook:build
