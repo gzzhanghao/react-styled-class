@@ -1,0 +1,27 @@
+name: Storybook
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  storybook:
+    name: Deployment storybook on gh-pages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: latest
+
+      - name: Install dependencies
+        run: pnpm i --frozen-lockfile
+
+      - name: Deploy
+        run: |
+          git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+          pnpm storybook:deploy:action
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
