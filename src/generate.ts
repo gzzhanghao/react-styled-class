@@ -30,7 +30,7 @@ function genCSSFromObject(selector: string, object: Record<string, any>) {
       }
       let childSelector: string;
       if (key.includes('&')) {
-        childSelector = key.replace('&', selector);
+        childSelector = key.replace(/&/g, selector);
       } else {
         childSelector = `${selector} ${key}`;
       }
